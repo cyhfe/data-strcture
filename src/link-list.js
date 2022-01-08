@@ -98,6 +98,7 @@ class LinkedList {
 
     this.head = prev;
     this.printList();
+    ````;
     return prev;
   }
 }
