@@ -5,6 +5,7 @@ class Node {
   }
 }
 
+// LinkedList
 class Stack {
   constructor() {
     this.top = null;
@@ -40,10 +41,28 @@ class Stack {
 }
 
 const instance = new Stack();
-debugger;
 
 instance.push("a");
 instance.push("b");
 instance.push("c");
 instance.pop();
 console.log(instance);
+
+// array
+class Stack2 {
+  constructor() {
+    this.stack = [];
+  }
+
+  peek() {
+    return this.stack[this.stack.length - 1];
+  }
+
+  push(value) {
+    return this.stack.push(value);
+  }
+
+  pop() {
+    return this.stack.pop();
+  }
+}
