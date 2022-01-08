@@ -17,20 +17,19 @@ class Node {
   constructor(value) {
     this.value = value;
     this.next = null;
+    this.prev = null;
   }
 }
 
 class LinkedList {
   constructor(value) {
-    this.head = {
-      value,
-      next: null,
-    };
+    this.head = new Node(value);
     this.tail = this.head;
     this.length = 1;
   }
   append(value) {
     const newNode = new Node(value);
+    newNode.prev = this.tail;
     this.tail.next = newNode;
     this.tail = newNode;
     this.length++;
@@ -38,6 +37,7 @@ class LinkedList {
   }
   prepend(value) {
     const newNode = new Node(value);
+    this.head.prev = newNode;
     newNode.next = this.head;
     this.head = newNode;
     this.length++;
@@ -60,14 +60,19 @@ class LinkedList {
       return this.prepend(value);
     }
     const leader = this.traverseToIndex(index - 1);
+    const fllower = leader.next;
     const newNode = new Node(value);
-    newNode.next = leader.next;
+    newNode.prev = leader;
+    fllower.prev = newNode;
+    newNode.next = fllower;
     leader.next = newNode;
     this.length++;
   }
   remove(index) {
     const leader = this.traverseToIndex(index - 1);
-    this.leader.next = this.leader.next.next;
+    const removedItem = leader.next;
+    removedItem.next.prev = leader;
+    leader.next = removedItem.next;
     this.length--;
   }
 
@@ -81,13 +86,28 @@ class LinkedList {
     }
     return target;
   }
+  reverse() {
+    let prev = null;
+    let current = this.head;
+    while (current) {
+      let temp = current.next;
+      current.next = prev;
+      prev = current;
+      current = temp;
+    }
+
+    this.head = prev;
+    this.printList();
+    return prev;
+  }
 }
 
 const list = new LinkedList(1);
 list.append(2);
 list.append(3);
-list.prepend(9);
-list.prepend(8);
-list.insert(10, 3);
+list.prepend(0);
+
 list.printList();
+list.reverse();
+
 // console.log(list);
