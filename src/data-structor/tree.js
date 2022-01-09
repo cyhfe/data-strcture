@@ -1,5 +1,3 @@
-const { json } = require("stream/consumers");
-
 class Node {
   constructor(value) {
     this.value = value;
