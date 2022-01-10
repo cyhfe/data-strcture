@@ -46,11 +46,61 @@ function selectionSort(array) {
   return array;
 }
 
-let array = createNonSortedArray(5);
-// console.log(array);
-array = selectionSort(array);
-// console.log(array);
+// let array = createNonSortedArray(5);
+// // console.log(array);
+// array = selectionSort(array);
+// // console.log(array);
 
-function insertionSort() {
-  return;
+// 插入排序
+
+function insertionSort(array) {
+  const { length } = array; // {1}
+  let temp;
+  for (let i = 1; i < length; i++) {
+    let j = i; // 就是要插入的index
+    temp = array[i]; // 取出的数
+    while (j > 0 && array[j - 1] > temp) {
+      array[j] = array[j - 1]; // {6}
+      j--;
+    }
+    array[j] = temp; // {7}
+  }
+  return array;
+}
+
+// let array = createNonSortedArray(5);
+// console.log(array);
+// sorted = insertionSort(array);
+// console.log(sorted);
+
+// 归并排序
+function mergeSort(array) {
+  if (array.length > 1) {
+    const middle = Math.floor(array.length / 2);
+    const left = mergeSort(array.slice(0, middle));
+    const right = mergeSort(array.slice(middle));
+    array = merge(left, right);
+  }
+  return array;
+}
+
+function merge(left, right) {
+  let i = 0;
+  let j = 0;
+  const result = [];
+  while (i < left.length && j < right.length) {
+    const less = left[i] < right[j] ? left[i++] : right[j++];
+    result.push(less);
+  }
+  const rest = i < left.length ? left.slice(i) : right.slice(j);
+  return result.concat(rest);
+}
+
+// let array = createNonSortedArray(5);
+// console.log(array);
+// sorted = mergeSort(array);
+// console.log(sorted);
+
+function quickSort(array) {
+  return quick(array, 0, array.length - 1);
 }
